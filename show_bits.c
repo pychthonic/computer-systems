@@ -93,6 +93,18 @@ int main(int argc, char* argv[]) {
     printf("argv[1] just before byte_swap: %s\n", argv[1]);
     byte_swap(argv[1], str_len);
     printf("\nSwapping bytes in argv[1]... now argv[1] = %s\n", argv[1]); 
+    short x = 15;
+    short mx = -x;
+    printf("x = %d: \n", x);
+    show_bits((byte_pointer) &x, sizeof(short));
+    printf("\nmx = %d: \n", mx);
+    show_bits((byte_pointer) &mx, sizeof(short)); 
+    unsigned short y = (unsigned short) x;
+    printf("\ny = %d: \n", y);
+    show_bits((byte_pointer) &y, sizeof(short));
+    unsigned short z = (unsigned short) mx;
+    printf("\nz = %d: \n", z);
+    show_bits((byte_pointer) &z, sizeof(short));
     return 0;
 }
 
