@@ -16,7 +16,19 @@ int c_func(int x) {
 }
 
 int d_func(int x) {
-    return (((x >> ((sizeof(x) - 1) << 3)) & 0xFF) < 0xFF);
+    
+    /* Flip x's bits: */
+    x = ~x;
+
+    /* Clear all least significant bits in x: */
+    int mask = (0xFF << ((sizeof(x) - 1) << 3));
+    x = x & mask;
+
+    /* If any 1's remain in x, it means that 1 was a 
+    zero inside x's most significant bit: */
+
+    return x && 1;
+
 }
 
 int main() {
