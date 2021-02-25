@@ -91,9 +91,7 @@ int main() {
     printf("\nsra(0x%08X, 2) = 0x%08X\n", x, sra(x, 2));
 
     x = 512;
-    printf("\nsra(0x%08X, 2) = 0x%08X\n", x, sra(x, 2));
-
-    printf("\n");
+    printf("\nsra(0x%08X, 2) = 0x%08X\n\n", x, sra(x, 2));
 
     return 0;
 }
