@@ -26,3 +26,22 @@ void show_bytes(byte_pointer start, size_t len) {
     }
     printf("\n");
 }
+
+void show_bits(byte_pointer start, size_t len) {
+    printf("Bits:  ");
+    unsigned int bit;
+    unsigned char temp_byte;
+    for (int i=0; i<len; i++) { 
+        for (int j=8; j>0; j--) {
+            if (j == 4) {
+                printf(" ");
+            }
+            temp_byte = start[i] >> j - 1;
+            bit = temp_byte & 1; 
+            printf("%d", bit);
+        }
+        if ( i < len - 1 )
+            printf(" | ");
+    }
+    printf("\n");
+}
