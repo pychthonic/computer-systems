@@ -2,7 +2,11 @@
 
 #include "chapter2.h"
 
-/* Return 1 when x contains an odd number of 1s; 0 otherwise. */
+/* This problem was a fun one. I had to think about it for 10 
+   minutes to figure out a plan.
+   
+   Return 1 when x contains an odd number of 1s; 0 otherwise.
+*/
 
 int odd_ones(unsigned x) {
     size_t w_count = sizeof(unsigned) << 3;
@@ -50,6 +54,7 @@ int odd_ones(unsigned x) {
 int main() {
 
     // Tests:
+
     unsigned x = 5;
     printf("\nx = %d; odd_ones(0x%08X) = %d\n", x, x, odd_ones(x));
     show_bits((byte_pointer) &x, sizeof(x));
@@ -103,5 +108,6 @@ int main() {
     show_bits((byte_pointer) &x, sizeof(x));
 
     printf("\n");
+
     return 0;
 }
