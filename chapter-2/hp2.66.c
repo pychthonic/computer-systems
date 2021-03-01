@@ -6,8 +6,14 @@
 
     This is not the best way to do it but it works.
 
-    It also doesn't work yet but I'm calling it a day and pushing the code for now.
-    TBC...
+    The better way to do it goes like so:
+    
+    Take the most significant bit and fold it forward by 
+    1, 2, 4, 8, then 16 bits. Use | to fold the bits forward:
+    x |= x >> 1;   -> This replicates the most significant bit
+    right by one bit. 
+    Then return that number, shifted right one more time and added
+    to (x && 1).
     
 */
 
@@ -39,7 +45,7 @@ int leftmost_one(unsigned x) {
 
     printf("\nAfter four passes, nibble_left_bits = %d, halfnibble = %d\n", nibble_left_bits, halfnibble);
 
-    return ((((((1 << (halfnibble & 1)) << ((halfnibble & 2))) << (nibble_left_bits << 1)) << (bytey_left_bits << 2)) << (shorty_left_bits << 3)) << (inty_left_bits << 4));
+    return ((((((1 && x) << ((halfnibble & 2) && 1)) << (nibble_left_bits << 1)) << (bytey_left_bits << 2)) << (shorty_left_bits << 3)) << (inty_left_bits << 4));
 
 
     }
@@ -50,7 +56,7 @@ int main() {
 
     // Tests:
     
-    unsigned x = 8223;
+    unsigned x = 9981;
 
     unsigned mask = leftmost_one(x);
 
