@@ -26,9 +26,13 @@ int main() {
     printf("\n");
 
     // Tests:
-    
+
     unsigned x = 0x12345678;
     int n = 20;
+
+    printf("rotate_left(0x%08X, %d) --> 0x%08X\n", x, n, rotate_left(x, n));
+
+    n = 4;
 
     printf("rotate_left(0x%08X, %d) --> 0x%08X\n", x, n, rotate_left(x, n));
     
