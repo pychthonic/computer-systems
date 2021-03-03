@@ -36,7 +36,7 @@ int main() {
 
     // Tests:
 
-    int value1 = 10;
+    int value1 = 10;            // This just exists so I don't dereference a void pointer
     int val;
     void* buf = &value1;
     size_t maxbytes;
