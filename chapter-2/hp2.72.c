@@ -22,7 +22,6 @@ B. See below
 */
 
 void safe_copy_int(int val, void *buf, size_t maxbytes) {
-    
     if (maxbytes >= sizeof(val)) {
         printf("\nSUCCESSFUL COPY:\n");
         printf("val: %d, buf: %p, maxbytes: %lu\n", val, buf, maxbytes);
@@ -32,11 +31,6 @@ void safe_copy_int(int val, void *buf, size_t maxbytes) {
         printf("val: %d, buf: %p, maxbytes: %lu\n", val, buf, maxbytes);
     }
 }
-
-
-
-
-
 
 int main() {
 
