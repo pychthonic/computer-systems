@@ -31,7 +31,7 @@ int main() {
 
     printf("\n%d * 17 =       %d\nmult_17(%d) --> %d\n", x, x * 17, x, mult_17(x));
 
-    x = -8;
+    x = -872839;
     printf("\n%d * 17 =       %d\nmult_17(%d) --> %d\n", x, x * 17, x, mult_17(x));
 
     x = -1;
@@ -51,7 +51,7 @@ int main() {
     x = 3;
     printf("\n%d * -7 =               %d\nmult_negative_7(%d) --> %d\n", x, x * -7, x, mult_negative_7(x));
 
-    x = -8;
+    x = -872839;
     printf("\n%d * -7 =               %d\nmult_negative_7(%d) --> %d\n", x, x * -7, x, mult_negative_7(x));
 
     x = -1;
@@ -71,7 +71,7 @@ int main() {
     x = 3;
     printf("\n%d * 60 =       %d\nmult_60(%d) --> %d\n", x, x * 60, x, mult_60(x));
 
-    x = -8;
+    x = -872839;
     printf("\n%d * 60 =       %d\nmult_60(%d) --> %d\n", x, x * 60, x, mult_60(x));
 
     x = -1;
@@ -93,7 +93,7 @@ int main() {
     x = 3;
     printf("\n%d * -112 =               %d\nmult_negative_112(%d) --> %d\n", x, x * -112, x, mult_negative_112(x));
 
-    x = -8;
+    x = -872839;
     printf("\n%d * -112 =               %d\nmult_negative_112(%d) --> %d\n", x, x * -112, x, mult_negative_112(x));
 
     x = -1;
