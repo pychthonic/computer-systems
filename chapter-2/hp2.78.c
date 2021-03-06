@@ -5,7 +5,18 @@
 
 #include "chapter2.h"
 
+/*
 
+Compilation notes: remember to add a "-lm" option when compiling with gcc, like so:
+
+$ gcc  -lm -o hp2.78 hp2.78.c chapter2.c
+
+The "l" stands for "link", and the "m" stands for "math", so "link the math library".
+
+This allows the linker to find the definition of pow(). math.h only includes the
+declaration of pow(), and not the definition.
+
+*/
 
 /*  Divide by power of 2. Assume 0 <= k < w-1 */
 int divide_power2(int x, int k) {
