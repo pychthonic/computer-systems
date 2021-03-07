@@ -11,13 +11,13 @@ If w (bit count) is 8, and k is 5, the number we're looking for is:
 
     1110 0000
 
-if w is 16, and k is 9, the number we're looking for is:
+If w is 16, and k is 9, the number we're looking for is:
 
     1111 1110 0000 0000
 
 */
 u_int64_t func_A(size_t k) {
-    return (-1) & ~((1 << k) - 1);
+    return ((-1) & ~((1 << k) - 1));
 }
 
 
@@ -52,14 +52,12 @@ int main() {
 
     k = 10;
     x = func_A(k);
-
     printf("\nfunc_A(%lu) produces bit pattern: \n", k);
     show_bits((byte_pointer) &x, sizeof(x));
 
 
     k = 3;
     x = func_B(j, k);
-
     printf("\nfunc_B(%lu, %lu) produces bit pattern: \n", j, k);
     show_bits((byte_pointer) &x, sizeof(x));
 
@@ -67,7 +65,6 @@ int main() {
     j = 7;
     k = 9;
     x = func_B(j, k);
-
     printf("\nfunc_B(%lu, %lu) produces bit pattern: \n", j, k);
     show_bits((byte_pointer) &x, sizeof(x));
 
