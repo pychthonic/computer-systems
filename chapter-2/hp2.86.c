@@ -50,8 +50,7 @@ V = (1 - (1/(2^64)))(2^-16382) = (1/(2^16382)) - (1/(2^16446))
 
 Again, I don't feel like converting this number to a decimal is 
 going to further my understanding, so I'm not going to. It's a 
-really small number positioned just underneath another 
-really small number. 
+really really small amount less than a really small number. 
 
 
 
