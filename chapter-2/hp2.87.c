@@ -62,13 +62,26 @@ Bits = 0110 0000 0000 0000
 
 Largest denormalized:
 
+Bits: 0000 0011 1111 1111
+
+Bias = 15
+
+f = ((2^10) - 1) / (2^10)
+
+M = ((2^10) - 1) / (2^10) = 1023/1024
+
+E = 1 - Bias = 1 - 14 = -13
+
+V = 1023/1024 * 2^-13 = 1023/(1024*8092)
+
+
 
 
 Description                 Hex         M           E           V           D
 -0          			    0x8000	    0/1024      0	        0    	    0.0
 Smallest value > 2          0x4001      1025/1024   1           1025/512    2.0019531 
 512                         0x6000      1024/1024   9           512         512.0
-Largest denormalized
+Largest denormalized        0x03FF      1023/1024   -13      1023/8286208   ~.0001
 -infinity
 Number with hex 0x3BB0      0x3BB0
 
@@ -92,6 +105,7 @@ int main() {
 
     printf("\nSmallest value > 2: %f\n", 1025.0/512);    
 
+    printf("\n1023/(1024*8092) = %Le\n", 1023/(1024 * 8092));
     printf("\n");
 
     return 0;
