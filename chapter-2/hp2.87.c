@@ -76,14 +76,46 @@ V = 1023/1024 * 2^-13 = 1023/(1024*8092)
 
 
 
+Negative Infinity:
+
+1111 1100 0000 0000
+
+
+
+
+0x3BB0:
+
+Bias = 15
+
+0011 1011 1011 0000
+
+Positive number.
+
+e bits = 01110 = 14
+
+E = 14 - 15 = -1
+
+2^E = 1/2
+
+f bits = 11 1011 0000 = 1/2 + 1/4 + 1/8 + 1/32 + 1/64 = 32/64 + 16/64 + 8/64 + 2/64 + 1/64 = 59/64
+
+OR we can calculate f like so:
+
+f = (16 + 32 + 128 + 256 + 512) / 1024 = 944/1024 = 472/512 = 236/256 = 118/128 = 59/64 woot!
+
+M = 1 + 59/64 = 123/64
+
+V = (1/2) * (123/64) = 123/128
+
+
 
 Description                 Hex         M           E           V           D
 -0          			    0x8000	    0/1024      0	        0    	    0.0
 Smallest value > 2          0x4001      1025/1024   1           1025/512    2.0019531 
 512                         0x6000      1024/1024   9           512         512.0
-Largest denormalized        0x03FF      1023/1024   -13      1023/8286208   ~.0001
--infinity
-Number with hex 0x3BB0      0x3BB0
+Largest denormalized        0x03FF      1023/1024   -13      1023/8286208   ~0.0001
+-infinity                   0xFC00      n/a         n/a         -inf        -inf
+Number with hex 0x3BB0      0x3BB0      123/64     -1         123/128       ~0.961
 
 
 
