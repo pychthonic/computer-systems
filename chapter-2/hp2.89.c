@@ -71,10 +71,7 @@ int main() {
     // Tests:
 
 
-
-
-
-    // Proof for A:
+    // Testing A:
 
     int i1 = INT_MAX;
 
@@ -82,10 +79,10 @@ int main() {
 
     float f1 = (float) d1;
 
-    printf("\n%f == %f --> %d\n", f1, d1, f1 == d1);
+    printf("\nFOUND FALSE FOR A:\n%f == %f --> %d\n", f1, d1, f1 == d1);
 
 
-    // Proof for B:
+    // Testing B:
 
     i1 = INT_MIN;
     d1 = (double) i1;
@@ -95,7 +92,7 @@ int main() {
 
     double d3 = d1 - d2;
 
-    printf("\n%f == %f --> %d\n", d3, (double) (i1 - i2), d3 == (double) (i1 - i2));
+    printf("\nFOUND FALSE FOR B:\n%f == %f --> %d\n", d3, (double) (i1 - i2), d3 == (double) (i1 - i2));
 
 
     // Testing C:
@@ -117,7 +114,7 @@ int main() {
     }
 
 
-    // // Testing D:
+    // Testing D:
 
     double dmult1, dmult2;
 
@@ -149,7 +146,7 @@ int main() {
     }
 
 
-    for (int i = 0; i < INT_MAX; ++i) {
+    for (int i = 0; i < 10000; ++i) {
         x = rand() - rand(), z = rand() - rand();
         dx = (double) x, dz = (double) z;
 
