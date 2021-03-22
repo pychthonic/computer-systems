@@ -49,11 +49,11 @@ float fpwr2(int x) {
         frac = 0;
     } else if (x < 0) {
         /* Denormalized result. */
-        exp = 0;
+        exp = ((1 << 7) - 1) + x;
         //frac = ((1 << 22) >> (unsigned) (-x));
-        frac = 1 << 23;
-        shift_count = -x;
-        frac = frac >> shift_count;
+        frac = 0;
+        // shift_count = -x;
+        // frac = frac >> shift_count;
 
 
         printf("\nfrac bits for x = %d:\n", x);
@@ -86,14 +86,16 @@ int main() {
 
     float f;
 
-    // for (int x = -25; x < 2; ++x) {
-    //     printf("\n########################\n\n");
-    //     f = fpwr2(x);
-    //     printf("\nf bits in main of fptwr2(%d):\n", x);
-    //     show_bits((byte_pointer) &f, sizeof(f));
-    //     printf("\nfpwr2(%d) = %f\n", x, f);
-    //     printf("\n###############\n");
-    // }
+    for (int x = -25; x < 5; ++x) {
+        printf("\n########################\n\n");
+        f = fpwr2(x);
+        printf("\nf bits in main of fptwr2(%d):\n", x);
+        show_bits((byte_pointer) &f, sizeof(f));
+        printf("\nfpwr2(%d) = %f\n", x, f);
+        printf("\n###############\n");
+    }
+
+    printf("\n");
     
     f = 0.125;
     show_bits((byte_pointer) &f, sizeof(f));
