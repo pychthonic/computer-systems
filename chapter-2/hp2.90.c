@@ -74,7 +74,6 @@ int main() {
         printf("\nf bits in main of fptwr2(%d):\n", x);
         show_bits((byte_pointer) &f, sizeof(f));
         printf("\nfpwr2(%d) = %.50f\n", x, f);
-        // printf("\n###############\n");
     }
     
     printf("\n");
