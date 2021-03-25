@@ -27,7 +27,7 @@ E = 128 - 127 = 1
 
 M =           1.100 1001 0000 1111 1101 1011
 
-V = M * 2^E = 110.0 1001 0000 1111 1101 1011
+V = M * 2^E = 11. 00 1001 0000 1111 1101 1011
 
 
 B.
@@ -41,7 +41,11 @@ B.
 
 22/7 as binary fraction = 11.001001...001
 
-whoop, it's 9am so time for work.
+
+C.
+
+They diverge at the 9th bit after the binary point.
+
 
 
 
