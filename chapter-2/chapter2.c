@@ -19,6 +19,22 @@ main functions.
 #endif
 
 
+
+/* Convert unsigned to float */
+float u2f(unsigned u) {
+    float return_val;
+    unsigned char* uptr = (unsigned char*) &u;
+    unsigned char* fptr = (unsigned char*) &return_val;
+
+    for (int i = 0; i < sizeof(float); ++i) {
+        *(fptr + i) = *uptr;
+        uptr++;
+    }
+
+    return return_val;
+}
+
+
 void show_bytes(byte_pointer start, size_t len) {
     int i;
     for (i = 0; i < len; ++i) {

@@ -7,22 +7,7 @@
 
 
 
-/* 
-Instead of assuming u2f, I wrote a function for it.
-*/
 
-float u2f(unsigned u) {
-    float return_val;
-    unsigned char* uptr = (unsigned char*) &u;
-    unsigned char* fptr = (unsigned char*) &return_val;
-
-    for (int i = 0; i < sizeof(float); ++i) {
-        *(fptr + i) = *uptr;
-        uptr++;
-    }
-
-    return return_val;
-}
 
 /* Takes an int x and returns float 2^x
 After finally getting it right, it looks simple, but this took several
