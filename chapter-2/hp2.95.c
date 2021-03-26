@@ -30,16 +30,20 @@ the boundaries of the cases to cover the ground differently.
 
 Breaking different scenarios down case by case:
 
-1/ Normalized values without min exp:
+1/ f is +/- inf:
+return f
+
+2/ Normalized values without min exp:
 
 Subtract one from exp.
 
-2/ Normalized values with min exp:
+3/ Normalized values with min exp:
 
-Number will become denormalized. Subtract one from exp to make it zero.
+Number will become denormalized. Set exp to zero.
+Add bit one past the most significant bit of frac, it's 23
 Right shift frac bits by one, round to even.
 
-3/ Denormalized values:
+4/ Denormalized values:
 
 Right-shift frac bits by 1, and rounding to even.
 
@@ -50,17 +54,19 @@ float_bits float_half(float_bits f) {
     unsigned frac = f & 0x7FFFFF;
     
     /* Test for NaN */
-    if (( exp == 255 ) && ( frac != 0 )) {
+    if ( exp == 255 ) {
         return f;
-    }
-
-    if ((exp > 0) && (exp != 1)) {
-        exp -= 1;
     } else if (exp == 1) {
         exp = 0;
+        frac = (frac | (1 << 23));
+        if ((frac & 3) == 3) {
+            frac += 1;
+        }
         frac >>= 1;
+    } else if ( exp > 0 ) {
+        exp -= 1;
     } else if (exp == 0) {
-        if (frac & 3 == 3) {
+        if ((frac & 3) == 3) {
             frac += 1;
         }
         frac >>= 1;
@@ -82,7 +88,7 @@ int main() {
     float_bits* f_ptr;
 
 
-    for (fb = 0; fb <= 10; ++fb) {
+    for (fb = 0; fb <= UINT_MAX; ++fb) {
         
         fb_half = float_half(fb);
 
