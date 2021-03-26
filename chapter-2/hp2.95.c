@@ -40,7 +40,7 @@ Subtract one from exp.
 3/ Normalized values with min exp:
 
 Number will become denormalized. Set exp to zero.
-Add bit one past the most significant bit of frac, it's 23
+Set the bit past the most significant bit of frac.
 Right shift frac bits by one, round to even.
 
 4/ Denormalized values:
