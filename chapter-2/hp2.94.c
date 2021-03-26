@@ -19,7 +19,10 @@ the specified floating-point operations.
 
 */
 
-/* Compute 2*f. If f is NaN, return f. 
+/* 
+
+Compute 2*f. If f is NaN, return f. 
+
 The instructions didn't say what to do for overflow. I'm going to make it 
 overflow to infinity in either direction. 
 
@@ -37,15 +40,17 @@ Return +/- infinity
 
 Left-shift frac bits by 1.
 
-4/ Denormalized values with 1 for most significant frac bit:
+4/ Denormalized values with 1 in most significant frac bit:
 
-Add one to E
-
+These will become normalized. We can still left-shift frac bits, 
+since the left-most bit will fall into the "implied leading 1"
+bit position when the number becomes normalized. We just add 1 to
+the exponent as well.
 
 */
 float_bits float_twice(float_bits f) {
     unsigned sign = f >> 31;
-    unsigned exp = f >> 23 & 0xFF;
+    unsigned exp = ((f >> 23) & 0xFF);
     unsigned frac = f & 0x7FFFFF;
     
     /* Test for NaN */
@@ -53,8 +58,18 @@ float_bits float_twice(float_bits f) {
         return f;
     }
 
+    if ((exp > 0) && (exp < 254)) {
+        exp += 1;
+    } else if (exp == 254) {
+        exp = 255;
+        frac = 0;
+    } else if ((exp == 0) && !(frac & 0x400000)) {
+        frac <<= 1;
+    } else if ((exp == 0) && (frac & 0x400000)) {
+        exp = 1;
+        frac = ((frac << 1) & 0x7FFFFF);
+    }
 
-    
     return ((sign << 31) | (exp << 23) | frac);
 }
 
@@ -81,7 +96,23 @@ int main() {
         f_ptr = (float_bits*) &f_twice_computer;
 
         if ((fb_twice != *f_ptr) && !isnan(f)) {
-            printf("Whoops:\nfb: %u\n", fb);
+            printf("\n###########################################\n");
+            printf("\n\nWhoops:\n\nfb: %u, *f_ptr = %u\n", fb, *f_ptr);
+
+            printf("\nfb bits:\n");
+            show_bits((byte_pointer) &fb, sizeof(fb));
+
+            printf("\nfb_twice bits:\n");
+            show_bits((byte_pointer) &fb_twice, sizeof(fb_twice));
+
+            printf("\nf bits:\n");
+            show_bits((byte_pointer) &f, sizeof(f));
+            printf("\n*f_ptr bits:\n");
+            show_bits((byte_pointer) f_ptr, sizeof(fb_twice));
+
+            printf("\n");
+
+
         }
         if (isnan(f) && (fb != fb_twice)) {
             printf("Whoops:\nfb: %u\n", fb);
