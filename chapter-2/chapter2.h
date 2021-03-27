@@ -13,6 +13,7 @@
 
 typedef unsigned char *byte_pointer;
 
+float u2f(unsigned u);
 void show_bytes(byte_pointer start, size_t len);
 void show_bits(byte_pointer start, size_t len);
 
