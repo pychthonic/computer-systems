@@ -59,24 +59,42 @@ float_bits float_i2f(int i) {
     unsigned right_shift_count = 0;
 
     unsigned M = u_temp;
+//    printf("M: %u\n", M);
     unsigned frac;
+    int lost_bit = 0;
     while ((M & 0xFF000000) != 0) {
         right_shift_count += 1;
+        if (M & 1 == 1) {
+            lost_bit = 1;
+        }
+        
         M >>= 1;
+ //       printf("line 71");
     }
-    printf("M: %u\n", M);
-    printf("\nM bits:\n");
-    show_bits((byte_pointer) &M, sizeof(M));
-
+  //  printf("right_shift_count: %u\n", right_shift_count);
+    if ((M & 1) == 1) {
+        if ((lost_bit == 1) && (right_shift_count > 0)) {
+            M += 1;
+        }
+    }
+   
+   // printf("M: %u\n", M);
+   // printf("i: %d\n", i);
+   // printf("\nM bits:\n");
+   // show_bits((byte_pointer) &M, sizeof(M));
+    
     unsigned left_shift_count = 0;
 
     while ((M & 0x00800000) == 0) {
         left_shift_count += 1;
         M <<= 1;
+        //printf("line 90");
     }
+/*
+    printf("left_shift_count: %u\n", left_shift_count);
     printf("\nM bits:\n");
     show_bits((byte_pointer) &M, sizeof(M));
-
+ */   
     // Clear implied leading bit:
     frac = M & 0x007FFFFF;
 
@@ -103,7 +121,7 @@ int main() {
 
 
 
-    for (i = 16777219; i <= 16777219; ++i) {
+    for (i = 0; i <= 10; ++i) {
         
         fb = float_i2f(i);
         floated_int = u2f(fb);
