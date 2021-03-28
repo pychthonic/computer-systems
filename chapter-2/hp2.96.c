@@ -23,14 +23,8 @@ the specified floating-point operations.
 Compute (int) f.
 If conversion causes overflow or f is NaN, return 0x80000000
 
-We will take a frac, then shift it right or left until we have
+We will take the frac, then shift it right or left until we have
 the whole number we're looking for, rounding toward zero.
-
-First, find E.
-
-Bias = 2^7 - 1 = 127
-
-E = exp - Bias
 
 */
 int float_f2i(float_bits f) {
@@ -40,12 +34,12 @@ int float_f2i(float_bits f) {
     unsigned M;
 
     if (exp > 0) {
-        M = (frac & (1 << 23));
+        M = (frac | (1 << 23));
     } else {
         return 0;
     }
     
-    int E = (int) exp - 127;
+    int E = (((int) exp) - 127);
     
     if (E < 0) {
         return 0;
@@ -53,10 +47,10 @@ int float_f2i(float_bits f) {
         return 0x80000000;
     }
     
-    int returned_int = frac;
+    int returned_int = M;
     
     if (E < 24) {
-        returned_int >>= (23 - E);    
+        returned_int >>= (23 - E);
     } else {
         returned_int <<= (E - 23);
     }
@@ -77,30 +71,22 @@ int main() {
     printf("\n");
     
     float f;
-    
-
     float_bits fb;
-
-    float_bits* f_ptr;
 
     int inted_float, inted_float_computer;
 
 
-    for (fb = 1065000000; fb <= UINT_MAX; ++fb) {
+    for (fb = 0; fb <= UINT_MAX; ++fb) {
         
         inted_float = float_f2i(fb);
 
         f = u2f(fb);
         inted_float_computer = (int) f;
 
-        f_ptr = (float_bits*) &inted_float_computer;
-
         if ((inted_float != inted_float_computer) && !isnan(f)) {
             printf("\n###########################################\n");
             printf("\n\nWhoops:\n\nfb: %u\n", fb);
             
-            
-
             printf("\nfb bits:\n");
             show_bits((byte_pointer) &fb, sizeof(fb));
 
@@ -114,8 +100,7 @@ int main() {
             
             break;
 
-        }
-        if (isnan(f) && (inted_float != 0x80000000)) {
+        } else if (isnan(f) && (inted_float != 0x80000000)) {
             printf("Whoops:\nfb: %u\n", fb);
         }
         
