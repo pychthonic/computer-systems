@@ -65,10 +65,6 @@ float_bits float_i2f(int i) {
     unsigned frac;
     int lost_bit = 0, last_lost_bit = 0, last_lost_bit_placed = 0;
 
-    printf("\nM bits:\n");
-    show_var_bits((byte_pointer) &M, sizeof(M));
-
-    // Shift M to the right, if necessary, so it fits into 24 bits:
     while ((M & 0xFF000000) != 0) {
 
         if (M & 1 == 1) {
@@ -83,27 +79,19 @@ float_bits float_i2f(int i) {
         M >>= 1;
     }
 
-    printf("\nM bits:\n");
-    show_var_bits((byte_pointer) &M, sizeof(M));
-
     if (M == ((1 << 24) - 1)) {
         if ((last_lost_bit) == 1) {
-            M = 0;
-            right_shift_count -= 1;
+            M = 1;
+            M <<= 23;
+            right_shift_count += 1;
+            last_lost_bit = 0;
         }
     }
-
-    printf("\nright_shift_count: %u\n", right_shift_count);
-    printf("line 84 lost_bits:\n");
-    show_var_bits((byte_pointer) &lost_bits, sizeof(lost_bits));
 
     if (last_lost_bit == 1) {
         last_lost_bit_placed = 1 << (right_shift_count - 1);
         lost_bits = (lost_bits & (~last_lost_bit_placed));
-        printf("line 90 lost_bits:\n");
-        show_var_bits((byte_pointer) &lost_bits, sizeof(lost_bits));
-        printf("\nM bits:\n");
-        show_var_bits((byte_pointer) &M, sizeof(M));
+
         if (lost_bits > 0) {
             M += 1;
         } else {
@@ -112,42 +100,19 @@ float_bits float_i2f(int i) {
             }
         }
     }
-    printf("\nM bits:\n");
-    show_var_bits((byte_pointer) &M, sizeof(M));
-
-    printf("\nright_shift_count: %u\n", right_shift_count);
-    printf("\nM: %u\n", M);
-    printf("i: %d\n", i);
-    printf("\nM bits:\n");
-
-    show_var_bits((byte_pointer) &M, sizeof(M));
     
     unsigned left_shift_count = 0;
 
     while ((M & 0x00800000) == 0) {
         left_shift_count += 1;
         M <<= 1;
-        // printf("line 90");
     }
 
-    // printf("\nleft_shift_count: %u\n", left_shift_count);
-    // printf("\nM bits:\n");
-    // show_var_bits((byte_pointer) &M, sizeof(M));
- 
-    // Clear implied leading bit:
     frac = M & 0x007FFFFF;
 
     int E = 23 - left_shift_count + right_shift_count;
 
-    //printf("E = %d\n", E);
-
     unsigned exp = E + 127;
-
-    // if ((last_lost_bit == 1) && (E > 23)) {
-
-    //     printf("\nline 122\n");
-    //     frac += 1;
-    // }
 
     return ((sign << 31) | (exp << 23) | frac);
 }
@@ -165,18 +130,8 @@ int main() {
 
     float floated_int, floated_int_computer;
 
-    
+    for (i = INT_MIN; i <= INT_MAX; ++i) {
 
-
-    for (i = 33554431; i <= INT_MAX; ++i) {
-        // if (i % 1000 == 0) {
-            printf("line 175, i = %d\n", i);
-        // }
-        // printf("i = %d\n", i);
-        printf("\ni bits:\n");
-        show_var_bits((byte_pointer) &i, sizeof(i));
-
-        
         fb = float_i2f(i);
         floated_int = u2f(fb);
 
