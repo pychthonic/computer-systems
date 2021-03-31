@@ -80,3 +80,11 @@ void show_var_bits(byte_pointer start, size_t len) {
     }
     printf("\n");
 }
+
+int bit_and(int x, int y) {
+  return ~((~x) | (~y));
+}
+
+int get_byte(int x, int n) {
+  return (x >> (n << 3)) & 0xFF;
+}
