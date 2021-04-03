@@ -88,3 +88,7 @@ int bit_and(int x, int y) {
 int get_byte(int x, int n) {
   return (x >> (n << 3)) & 0xFF;
 }
+
+int logicalShift(int x, int n) {
+  return (x >> n) & ~((1 << 31) >> (n) << 1);
+}
