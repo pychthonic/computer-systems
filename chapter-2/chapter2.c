@@ -92,3 +92,7 @@ int get_byte(int x, int n) {
 int logicalShift(int x, int n) {
   return (x >> n) & ~((1 << 31) >> (n) << 1);
 }
+
+int bang(int x) {
+    return (((((~x) + 1) | x) >> 31) + 1);
+}
