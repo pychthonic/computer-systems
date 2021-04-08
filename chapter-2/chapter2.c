@@ -96,3 +96,12 @@ int logicalShift(int x, int n) {
 int bang(int x) {
     return (((((~x) + 1) | x) >> 31) + 1);
 }
+
+int divpwr2(int x, int n) {
+    int unrounded = x >> n;
+    int is_negative = !!(x >> 31);
+    int lost_bit = !!((unrounded << n) ^ x);
+    int round_bool = ((!!n) & lost_bit);
+    
+    return (unrounded + (is_negative & round_bool));
+}

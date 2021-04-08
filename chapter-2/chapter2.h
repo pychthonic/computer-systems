@@ -18,5 +18,6 @@ void show_bytes(byte_pointer start, size_t len);
 void show_bits(byte_pointer start, size_t len);
 void show_var_bits(byte_pointer start, size_t len);
 int bang(int x); 
+int divpwr2(int x, int n);
 
 #endif
