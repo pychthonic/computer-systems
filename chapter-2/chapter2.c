@@ -105,3 +105,7 @@ int divpwr2(int x, int n) {
     
     return (unrounded + (is_negative & round_bool));
 }
+
+int isPositive(int x) {
+  return (!(x >> 31) & !!x);
+}

@@ -19,5 +19,6 @@ void show_bits(byte_pointer start, size_t len);
 void show_var_bits(byte_pointer start, size_t len);
 int bang(int x); 
 int divpwr2(int x, int n);
+int isPositive(int x);
 
 #endif
