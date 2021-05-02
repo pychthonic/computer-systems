@@ -20,5 +20,9 @@ void show_var_bits(byte_pointer start, size_t len);
 int bit_and(int x, int y);
 int get_byte(int x, int n);
 int logicalShift(int x, int n);
+int bang(int x); 
+int divpwr2(int x, int n);
+int isPositive(int x);
+
 
 #endif
