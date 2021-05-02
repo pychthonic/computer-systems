@@ -17,5 +17,8 @@ float u2f(unsigned u);
 void show_bytes(byte_pointer start, size_t len);
 void show_bits(byte_pointer start, size_t len);
 void show_var_bits(byte_pointer start, size_t len);
+int bit_and(int x, int y);
+int get_byte(int x, int n);
+int logicalShift(int x, int n);
 
 #endif
