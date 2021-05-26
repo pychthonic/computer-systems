@@ -1,4 +1,3 @@
-#include <float.h>
 #include <stdio.h>
 #include <assert.h>
 
@@ -23,15 +22,12 @@ long decode2(long x, long y, long z) {
 
 int main() {
     
-    // Tests:
-
-    printf("\n");
-    
     long x = 450, y = 321, z = -6203;
     long a = decode2(x, y, z);
     long b = decode2_asm(x, y, z);
     
-    printf("decode2 got %ld, original assembly got %ld\n", a, b);
+    printf("\ndecode2 got %ld, original assembly got %ld\n", a, b);
+    
     assert(decode2(x, y, z) == decode2_asm(x, y, z));
 
     return 0;
