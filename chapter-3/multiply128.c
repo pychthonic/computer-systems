@@ -25,7 +25,7 @@
  * 0x7fffffffdf28:  0x01    0x00    0x00    0x00    0x00    0x00    0x00    0x00
  * 
  *
- * ...It's beautify isn't it?
+ * ...It's beautiful isn't it?
  *
  *        #iykyk
  *
