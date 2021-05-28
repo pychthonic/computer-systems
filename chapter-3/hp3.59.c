@@ -50,8 +50,8 @@
  *  7   imulq %rsi, %rdx    ; y = y * x
  *  8   addq %rdx, %rcx     ; rcx += rdx
  *  9   mulq %rsi           ; unsigned multiply rax by rsi, result in rdx:rax
- * 10   addq %rcx, %rdx     ; rdx += rcx
- * 11   movq %rax, (%rdi)   ; store low-order bits of 
+ * 10   addq %rcx, %rdx     ; rdx += rcx -- add result of line 8 to higher order bits of result found on line 9
+ * 11   movq %rax, (%rdi)   ; store low-order bits of result in memory pointed to by rdi.
  * 12   movq %rdx, 8(%rdi)  ; move high-order bits stored in rdi to memory address pointed to by rdi plus 8 bytes.
  * 13   ret
  *
@@ -66,7 +66,7 @@
  * follows the same rules for signed as for unsigned numbers.
  *
  * So here's the algorithm:
- * 1/ Extend both numbers to 128-bytes by extending their sign bits into another 64-bit register.
+ * 1/ Extend both numbers to 128-bit ints by extending their sign bits into another 64-bit register.
  * 2/ Multiply the lower 64 bits of x by the upper 64 bits of y. 
  * 3/ Multiple the lower 64 bits of y by the upper 64 bits of x.
  * 4/ Add these two products together.
