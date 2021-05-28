@@ -34,12 +34,6 @@
  * this algorithm is implemented.
  *
  * Solution:
- * 
- * void store_prod(int128_t *dest, int64_t x, int64_t y) {
- *   *dest = x * (int128_t y);
- * }
- *
- * 
  *
  *  1 store_prod:
  *  2   movq %rdx, %rax     ; rax = y
@@ -55,12 +49,9 @@
  * 12   movq %rdx, 8(%rdi)  ; move high-order bits stored in rdi to memory address pointed to by rdi plus 8 bytes.
  * 13   ret
  *
-*/
-
-
-/* 
- * This one took me a while to really wrap my head around, and the reason is because it was
- * a poorly written description of the problem. When figuring out assembly language generated
+ *
+ * This one took me a while to wrap my head around, and the reason is because it was a
+ * poorly written description of the problem. When figuring out assembly language generated
  * by gcc, my normal thought process is that gcc chose this code in particular for a reason,
  * whereas the purpose of this assembly code was to demonstrate that bit-level multiplying
  * follows the same rules for signed as for unsigned numbers.
