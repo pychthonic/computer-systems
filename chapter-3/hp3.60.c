@@ -38,7 +38,6 @@
  * n is held in ecx and rsi
  * result is held in rax
  * mask is held in rdx
- * 
  *
  * B/ What are the initial values of result and mask?
  * 
