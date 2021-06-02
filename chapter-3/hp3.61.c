@@ -108,6 +108,8 @@ long cread_alt3(long* xp) {
 	return result;
 }
 
+
+/*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Breakpoint 1, cread_alt3 (xp=0x7fffffffe7a0) at hp3.61.c:104
