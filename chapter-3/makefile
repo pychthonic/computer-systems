@@ -3,3 +3,4 @@ all:
 	gcc hp3.58.c decode2.o -o hp3.58 
 	gcc -g -c hp3.59.s -o storeprod.o
 	gcc -g hp3.59.c storeprod.o -o hp3.59
+	gcc -g hp3.61.c -o hp3.61
