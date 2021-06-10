@@ -20,11 +20,11 @@ long sum_col(long n, long A[NR(n)][NC(n)], long j) {
  * 1  sum_col:
  * 2    leaq 1(,%rdi,4), %r8		; r8 = 4n + 1
  * 3    leaq (%rdi,%rdi,2), %rax	; rax = 3n
- * 4    movq %rax, %rdi			; rdi = rax
+ * 4    movq %rax, %rdi			; rdi = rax = 3n
  * 5    testq %rax, %rax		 
  * 6    jle .L4				; if rax <= 0 goto .L4
- * 7    salq $3, %r8			; r8 *= 8
- * 8    leaq (%rsi,%rdx,8), %rcx	; rcx = 8j + A[NR(n)][NC(n)]
+ * 7    salq $3, %r8			; r8 *= 8, so r8 at this point is 8(4n+1)
+ * 8    leaq (%rsi,%rdx,8), %rcx	; rcx = 8j + &A
  * 9    movl $0, %eax			; rax = 0
  * 10   movl $0, %edx			; rdx = 0
  * 11 .L3:
@@ -43,9 +43,12 @@ long sum_col(long n, long A[NR(n)][NC(n)], long j) {
  */
 
 /*
+ * In line 5, the assembly tests whether rax is below 0, and to skip the for loop
+ * altogether if so. Therefore, rdi after line 4 must hold NR(n), which is (3 * n).
  *
+ * In line 14, the loop progresses by adding the number of bytes in (NC(n) * 8),
+ * which from line 2 we know is 8(4n + 1). Therefore, NC(n) = (4 * n + 1).
  *
- * TBC...
  */
 
 
