@@ -31,36 +31,38 @@ long eval(long x, long y, long z) {
 
 /* GCC generates the following assembly for the two functions:
  *
- * process:
- *   movq %rdi, %rax		; rax = &s
- *   movq 24(%rsp), %rdx	; rdx = &sp + 24
- *   movq (%rdx), %rdx		; rdx = *rdx
- *   movq 16(%rsp), %rcx	; rcx = &(sp + 16)
- *   movq %rcx, (%rdi)		; s.u[0] = rcx, so s.u[0] = &(sp + 16)
- *   movq 8(%rsp), %rcx		; rcx = &(sp + 8)
- *   movq %rcx, 8(%rdi)		; s.u[1] = rcx, so s.u[1] = &(sp + 8)
- *   movq %rdx, 15(%rdi)	; TBC
- *   ret
+ * 1  process:
+ * 2    movq %rdi, %rax		; rax = &(rsp + 64)
+ * 3    movq 24(%rsp), %rdx	; rdx = z   ???? Shouldn't this be leaq.....?? 
+ * 4    movq (%rdx), %rdx	; rdx = *rdx  ???????????????????? this makes no sense to me. The value of
+ * 				; z was put in rdx in line 3 of process, not the address of z.
+ * 5    movq 16(%rsp), %rcx	; rcx = *(rsp + 16) = &z
+ * 6    movq %rcx, (%rdi)	; s.u[0] = rcx, so s.u[0] = &(sp + 16)
+ * 7    movq 8(%rsp), %rcx	; rcx = &(sp + 8)
+ * 8    movq %rcx, 8(%rdi)	; s.u[1] = rcx, so s.u[1] = &(sp + 8)
+ * 9    movq %rdx, 16(%rdi)	; TBC
+ * 10   ret
  *
- * eval:
- *   subq $104, %rsp
- *   movq %rdx, 24(%rsp)
- *   leaq 24(%rsp), %rax
- *   movq %rdi, (%rsp)
- *   movq %rsi, 8(%rsp)
- *   movq %rax, 16(%rsp)
- *   leaq 64(%rsp), %rdi
- *   call process
- *   movq 72(%rsp), %rax
- *   addq 64(%rsp), %rax
- *   addq 80(%rsp), %rax
- *   addq $104, %rsp
- *   ret
+ * 1  eval:
+ * 2    subq $104, %rsp		; rsp -= 104
+ * 3    movq %rdx, 24(%rsp)	; *(rsp + 24) = z
+ * 4    leaq 24(%rsp), %rax	; rax = &(rsp + 24)
+ * 5    movq %rdi, (%rsp)	; *rsp = x
+ * 6    movq %rsi, 8(%rsp)	; *(rsp + 8) = y
+ * 7    movq %rax, 16(%rsp)	; *(rsp + 16) = rax  (= &(rsp + 24))
+ * 8    leaq 64(%rsp), %rdi	; rdi = &(rsp + 64)
+ * 9    call process
+ * 10   movq 72(%rsp), %rax
+ * 11   addq 64(%rsp), %rax
+ * 12   addq 80(%rsp), %rax
+ * 13   addq $104, %rsp
+ * 14   ret
  *
  *   A. We can see on line 2 of function eval that it allocates 104 bytes on the stack.
  *   Diagram the stack frame for eval, showing the values that it stores on the stack
  *   prior to calling process.
- *
+ *  
+ *   
  *
  *   
  *
@@ -81,7 +83,7 @@ long eval(long x, long y, long z) {
  *
  *
  *
- *   F. What general principles can you discern about how structure fvalues
+ *   F. What general principles can you discern about how structure values
  *   are passed as function arguments and how they are returned as function results?
  *
  *
