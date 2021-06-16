@@ -9,6 +9,13 @@
  */
 
 
+
+typedef enum {NEG, ZERO, POS, OTHER} range_t;
+
+extern range_t find_range(float x);
+
+
+
 int main() {
     	return 0;
 }
