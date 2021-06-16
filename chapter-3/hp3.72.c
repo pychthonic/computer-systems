@@ -16,30 +16,57 @@
  *
  * A. Explain, in mathematical terms, the logic in the computation of s2.
  * 
- * &s2 = rsp - (((8*n) + 30) & -16)
+ * &s2 = rsp - (((8*n) + 30) && -16)
  *
- * If n is 1, &s2 = 38 && -16 = 32
+ * If n is 1, &s2 = 38 && -16 = 32, for 8 bytes of array space plus padding
  *
- * If n is 2, &s = 46 && -16 = 0010 1110 && 1111 0000 = 32
+ * If n is 2, &s2 = 46 && -16 = 0010 1110 && 1111 0000 = 32, for 16 bytes of array space
  *
- * If n is 3, &s = 54 && -16 = 0011 0110 && 1111 0000 = 48
+ * If n is 3, &s2 = 54 && -16 = 0011 0110 && 1111 0000 = 48, for 24 bytes of array space
  *
+ * If n is 4, &s2 = 62 && -16 = 0011 1110 && 1111 0000 = 48, for 32 bytes of array space
+ *
+ * So, if n is odd, &s2 = rsp - (8*n) - 24
+ *
+ * If n is even, &s2 = rsp - (8*n) - 16
  *
  *
  * B. Explain in mathematical terms the logic in the computation of p.
  *
- * p = (rsp + 15) & -16
+ * p = (&s2 + 15) && -16
  *
+ * p will be the address of s2, rounded up by 16.
  *
  *
  * C. Find values of n and s1 that lead to minimum and maximum values of e1.
  *
+ * For maximum e1:
+ *
+ * n will be an odd number, since that will create 24 bytes of padding instead of
+ * 16.
+ *
+ * s1 will be a multiple of 16, so that p will not round up any bytes from s2.
+ *
+ * For minimum e1: 
+ *
+ * n will be an even number, since that will create 16 bytes of padding instead of
+ * 24.
+ *
+ * &s1 will be rbp - 15. I don't see how this is possible, given that the compiler
+ * seems to always pads the variables inside memory so that they are multiples of 16
+ * or 32, but theoretically, rbp - 15 would produce the minimum e1.
  *
  *
  * D. What alignment properties does this code guarantee for the values of s2 and p?
  *
+ * s2 will be the lowest multiple of 16 that is less than or equal to a multiple of
+ * 16 less than s1, so the lowest multiple of 16 less than or equal to (8 * n) less
+ * than s1, aligned with s1 instead of memory address 0.
+ * 
  *
- *
+ * p will be a muliple of 16 in memory, that is, a multiple of 16 aligned with memory
+ * address 0.
+ * 
  *
  *
  */
@@ -78,23 +105,3 @@ long aframe(long n, long idx, long *q) {
 int main() {
     	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
