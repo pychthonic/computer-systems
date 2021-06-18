@@ -8,7 +8,61 @@
  *
  */
 
+#include <stdio.h>
+#include <assert.h>
+#include <limits.h>
+#include "../chapter-2/chapter2.h"
+
+typedef enum {NEG, ZERO, POS, OTHER} range_t;
+
+extern range_t find_range_book(float x);
+extern range_t my_find_range_74(float x);
+
+
 
 int main() {
-    	return 0;
+	unsigned u = 0, count;
+	float f;
+	range_t r_book, my_r;
+	
+        f = -5.0;
+
+	r_book = find_range_book(f);
+	my_r = my_find_range_74(f);
+	printf("f: %f, r_book: %d, my_r: %d\n", f, r_book, my_r);
+	
+	f = 5.0;
+
+	r_book = find_range_book(f);
+	my_r = my_find_range_74(f);
+	printf("f: %f, r_book: %d, my_r: %d\n", f, r_book, my_r);
+	
+	f = 0;
+
+	r_book = find_range_book(f);
+	my_r = my_find_range_74(f);
+	printf("f: %f, r_book: %d, my_r: %d\n", f, r_book, my_r);
+	
+	f = 0.0 / 0.0;
+
+	r_book = find_range_book(f);
+	my_r = my_find_range_74(f);
+	printf("f: %f, r_book: %d, my_r: %d\n", f, r_book, my_r);
+	
+
+	for (count=0; count != UINT_MAX; ++count) {
+	        f = u2f(count);	
+		r_book = find_range_book(f);
+		my_r = my_find_range_74(f);
+		assert (r_book == my_r);
+		if (my_r != r_book)
+			printf("r_book: %d, my_r: %d\n", r_book, my_r);
+	}
+	count = UINT_MAX;
+	f = u2f(count);	
+	r_book = find_range_book(f);
+	my_r = my_find_range_74(f);
+	assert (r_book == my_r);
+    	
+	return 0;
 }

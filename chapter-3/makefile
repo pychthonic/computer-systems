@@ -6,3 +6,5 @@ all:
 	gcc -g hp3.61.c -o hp3.61
 	gcc -c hp3.73.s -o find_range.o
 	gcc hp3.73.c ../chapter-2/chapter2.c find_range.o -o hp3.73
+	gcc -c hp3.74.s -o find_range_74.o
+	gcc hp3.74.c ../chapter-2/chapter2.c find_range_74.o -o hp3.74
